@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import sklearn
+from sklearn.neighbors import KDTree
 
 
 
@@ -40,6 +41,15 @@ from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20, random_state = 0)
 print("Training data set")
 print(X_train)
+print("Testing data set")
+print(X_test)
+print("Y Train data set")
+print(y_train)
+print("Y test data set")
+print(y_test)
+
+
+
 
 
 from sklearn.preprocessing import StandardScaler
@@ -53,7 +63,9 @@ classifier.fit(X_train, y_train)
 
 
 y_pred = classifier.predict(X_test)
+print("this is testing data result")
 print(y_test)
+print("this is expected data result")
 print(y_pred)
 
 from sklearn.metrics import confusion_matrix,accuracy_score
@@ -61,3 +73,12 @@ cm = confusion_matrix(y_test, y_pred)
 ac = accuracy_score(y_test,y_pred)
 print(cm)
 print(ac)
+
+#Kd- tree code
+rng = np.random.RandomState(0)
+tree = KDTree(X, leaf_size=2)
+dist, ind = tree.query(X[:1], k=3)
+print("the three indices for the test data ")
+print(ind)
+print("the distnace of the test data")
+print(dist)
