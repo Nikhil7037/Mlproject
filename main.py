@@ -3,13 +3,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import sklearn
-from sklearn.neighbors import KDTree
-
-
+from sklearn.neighbors import KDTree, KNeighborsRegressor
 
 #Importing The Dataset
 dataset = pd.read_csv('Social_Network_Ads.csv')
-X = dataset.iloc[:, [1, 2, 3]].values
+X = dataset.iloc[:, [0,1, 2, 3]].values
 Z = dataset.iloc[:, 2].values
 R = dataset.iloc[:, 3].values
 y = dataset.iloc[:, -1].values
@@ -20,7 +18,7 @@ print(y)
 print(X[:, 1])
 print(Z)
 # plot dataset
-mglearn.discrete_scatter(X[:, 1], R, y)
+mglearn.discrete_scatter(X[:, 2], R, y)
 plt.legend(["Class 0", "Class 1"], loc=4)
 plt.xlabel("First feature")
 plt.ylabel("Second feature")
@@ -33,7 +31,7 @@ print("X.shape: {}".format(X.shape))
 
 from sklearn.preprocessing import LabelEncoder
 le = LabelEncoder()
-X[:,0] = le.fit_transform(X[:,0])
+X[:,1] = le.fit_transform(X[:,1])
 print(X)
 
 
@@ -47,9 +45,6 @@ print("Y Train data set")
 print(y_train)
 print("Y test data set")
 print(y_test)
-
-
-
 
 
 from sklearn.preprocessing import StandardScaler
@@ -82,3 +77,30 @@ print("the three indices for the test data ")
 print(ind)
 print("the distnace of the test data")
 print(dist)
+
+#trying to print a graph between accuracy and n each time using a graph
+neighbors = np.arange(1, 9)
+train_accuracy = np.empty(len(neighbors))
+test_accuracy = np.empty(len(neighbors))
+
+for i, k in enumerate(neighbors):
+    knn = KNeighborsClassifier(n_neighbors=k)
+    knn.fit(X_train, y_train)
+
+train_accuracy[i] = knn.score(X_train, y_train)
+test_accuracy[i] = knn.score(X_test, y_test)
+plt.plot(neighbors, test_accuracy, label='Testing dataset Accuracy')
+plt.plot(neighbors, train_accuracy, label='Training dataset Accuracy')
+
+plt.legend()
+plt.xlabel('n_neighbors')
+plt.ylabel('Accuracy')
+plt.show()
+
+
+#Regression coefficient calculation:
+reg = KNeighborsRegressor(n_neighbors=5)
+reg.fit(X_train,y_train)
+print("Test set R^2: {:.2f}".format(reg.score(X_test, y_test)))
+
+
