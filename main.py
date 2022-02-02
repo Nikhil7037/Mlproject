@@ -63,6 +63,7 @@ print(y_test)
 print("this is expected data result")
 print(y_pred)
 
+#print accuracy and confusion matrix
 from sklearn.metrics import confusion_matrix,accuracy_score
 cm = confusion_matrix(y_test, y_pred)
 ac = accuracy_score(y_test,y_pred)
