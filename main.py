@@ -5,6 +5,22 @@ import pandas as pd
 import sklearn
 from sklearn.neighbors import KDTree, KNeighborsRegressor
 
+
+#using pandas to get mean median mode of each class(Gender)
+employee = pd.read_csv('Social_Network_Ads.csv')
+dept_gender_salary =  employee.groupby(['Gender'],as_index=False).EstimatedSalary.mean()
+print(dept_gender_salary)
+dept_gender_age =  employee.groupby(['Gender'],as_index=False).Age.mean()
+print(dept_gender_age)
+dept_gender_age_median = employee.groupby(['Gender'],as_index=False).Age.median()
+print(dept_gender_age_median)
+dept_gender_age_median_gender = employee.groupby(['Gender'],as_index=False).EstimatedSalary.median()
+print(dept_gender_age_median_gender)
+dept_gender_age_mode = employee.groupby(['Gender'],as_index=False).Age.describe()
+print(dept_gender_age_mode )
+dept_gender_age_mode_gender = employee.groupby(['Gender'],as_index=False).EstimatedSalary.describe()
+print(dept_gender_age_mode_gender)
+
 #Importing The Dataset
 dataset = pd.read_csv('Social_Network_Ads.csv')
 X = dataset.iloc[:, [0,1, 2, 3]].values
