@@ -18,7 +18,6 @@ dept_gender_age_median = employee.groupby(['Gender'],as_index=False).Age.median(
 print("\nMedian Age based on gender\n")
 print(dept_gender_age_median)
 dept_gender_age_median_gender = employee.groupby(['Gender'],as_index=False).EstimatedSalary.median()
-print("\nMedian Salary based on gender\n")
 print(dept_gender_age_median_gender)
 dept_gender_age_mode = employee.groupby(['Gender'],as_index=False).Age.describe()
 print(dept_gender_age_mode )
