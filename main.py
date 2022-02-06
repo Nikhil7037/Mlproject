@@ -21,7 +21,6 @@ dept_gender_age_median_gender = employee.groupby(['Gender'],as_index=False).Esti
 print("\nMedian Salary based on gender\n")
 print(dept_gender_age_median_gender)
 dept_gender_age_mode = employee.groupby(['Gender'],as_index=False).Age.describe()
-print("\nAverage Salary based on gender\n")
 print(dept_gender_age_mode )
 dept_gender_age_mode_gender = employee.groupby(['Gender'],as_index=False).EstimatedSalary.describe()
 print(dept_gender_age_mode_gender)
@@ -40,9 +39,9 @@ print(X[:, 1])
 print(Z)
 # plot dataset
 mglearn.discrete_scatter(X[:, 2], R, y)
-plt.legend(["Class 0", "Class 1"], loc=4)
-plt.xlabel("First feature")
-plt.ylabel("Second feature")
+plt.legend(["Female", "Male"], loc=4)
+plt.xlabel("Age")
+plt.ylabel("Salary (USD)")
 plt.show()
 print("X.shape: {}".format(X.shape))
 
@@ -57,7 +56,7 @@ print(X)
 
 
 from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20, random_state = 0)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.9, random_state = 0)
 print("Training data set")
 print(X_train)
 print("Testing data set")
@@ -74,7 +73,7 @@ X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test)
 
 from sklearn.neighbors import KNeighborsClassifier
-classifier = KNeighborsClassifier(n_neighbors = 5, metric = 'minkowski', p = 2)
+classifier = KNeighborsClassifier(n_neighbors = 20, metric = 'minkowski', p = 2)
 classifier.fit(X_train, y_train)
 
 
@@ -97,7 +96,7 @@ tree = KDTree(X, leaf_size=2)
 dist, ind = tree.query(X[:1], k=3)
 print("the three indices for the test data ")
 print(ind)
-print("the distnace of the test data")
+print("the distance of the test data")
 print(dist)
 
 #trying to print a graph between accuracy and n each time using a graph
