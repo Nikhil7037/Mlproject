@@ -1,5 +1,6 @@
 import imp
 
+
 import mglearn as mglearn
 import numpy as np
 import matplotlib.pyplot as plt
@@ -67,8 +68,7 @@ print("Testing data set")
 print(X_test)
 print("Y Train data set")
 print(y_train)
-print("Y test data set")
-print(y_test)
+
 
 
 from sklearn.preprocessing import StandardScaler
@@ -80,12 +80,32 @@ from sklearn.neighbors import KNeighborsClassifier
 classifier = KNeighborsClassifier(n_neighbors = 5, metric = 'minkowski', p = 2)
 classifier.fit(X_train, y_train)
 
-
-y_pred = classifier.predict(X_test)
-print("this is expected data result")
-print(y_test)
 print("this is testing data result")
+print(y_test)
+print("this is expected data result")
+y_pred = classifier.predict(X_test)
 print(y_pred)
+
+#Testing for a random Dataset
+lookup_fruit_name = dataset.Purchased.unique()
+print(lookup_fruit_name)
+unknown1 = pd.DataFrame([[10000, 1,33, 500]], columns=['User ID','Gender','Age','EstimatedSalary'])
+fruit_prediction = classifier.predict(unknown1)
+print("lets see here")
+print(lookup_fruit_name[fruit_prediction[-1]])
+
+unknown2 = pd.DataFrame([[10000, 1,22, 1000]], columns=['User ID','Gender','Age','EstimatedSalary'])
+fruit_prediction = classifier.predict(unknown2)
+print("lets see here")
+print(lookup_fruit_name[fruit_prediction[-1]])
+
+unknown3 = pd.DataFrame([[10000, 0,22, 500]], columns=['User ID','Gender','Age','EstimatedSalary'])
+fruit_prediction = classifier.predict(unknown3)
+print("lets see here")
+print(lookup_fruit_name[fruit_prediction[-1]])
+
+
+#print(y_pred)
 
 #print accuracy and confusion matrix
 from sklearn.metrics import confusion_matrix, accuracy_score, mean_squared_error
@@ -139,6 +159,7 @@ from sklearn.model_selection import KFold
 kf = KFold(n_splits=2)
 for train, test in kf.split(X):
  print((train, test))
+ 
 
 
 #create a tree using brute force technique
@@ -149,3 +170,7 @@ plt.figure(figsize=(20,10))
 
 plot_tree(model_tree,class_names=["0","1"],rounded=True,filled=True)
 plt.show()
+
+
+
+
